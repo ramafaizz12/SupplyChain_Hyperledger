@@ -15,14 +15,7 @@ OrdererOrgs:
         SANS:
             - "localhost"
             - "127.0.0.1"
-      - Hostname: orderer2
-        SANS:
-          - "localhost"
-          - "127.0.0.1"
-      - Hostname: orderer3
-        SANS:
-            - "localhost"
-            - "127.0.0.1"
+     
 
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
@@ -31,12 +24,12 @@ PeerOrgs:
   # ---------------------------------------------------------------------------
   # Org1
   # ---------------------------------------------------------------------------
-  - Name: Org1
-    Domain: org1.example.com
+  - Name: farmer
+    Domain: farmer.example.com
     EnableNodeOUs: true
 
     Template:
-      Count: 2
+      Count: 1
       # Start: 5
       # Hostname: {{.Prefix}}{{.Index}} # default
       SANS:
@@ -45,12 +38,68 @@ PeerOrgs:
     Users:
       Count: 1
 
-  - Name: Org2
-    Domain: org2.example.com
+  - Name: retailer
+    Domain: retailer.example.com
     EnableNodeOUs: true
 
     Template:
-      Count: 2
+      Count: 1
+      # Start: 5
+      # Hostname: {{.Prefix}}{{.Index}} # default
+      SANS:
+        - "localhost"
+
+    Users:
+      Count: 1
+  
+  - Name: distributor
+    Domain: distributor.example.com
+    EnableNodeOUs: true
+
+    Template:
+      Count: 1
+      # Start: 5
+      # Hostname: {{.Prefix}}{{.Index}} # default
+      SANS:
+        - "localhost"
+
+    Users:
+      Count: 1
+
+  - Name: wholesaler
+    Domain: wholesaler.example.com
+    EnableNodeOUs: true
+
+    Template:
+      Count: 1
+      # Start: 5
+      # Hostname: {{.Prefix}}{{.Index}} # default
+      SANS:
+        - "localhost"
+
+    Users:
+      Count: 1
+
+  - Name: manufacturer
+    Domain: manufacturer.example.com
+    EnableNodeOUs: true
+
+    Template:
+      Count: 1
+      # Start: 5
+      # Hostname: {{.Prefix}}{{.Index}} # default
+      SANS:
+        - "localhost"
+
+    Users:
+      Count: 1
+
+  - Name: consumer
+    Domain: consumer.example.com
+    EnableNodeOUs: true
+
+    Template:
+      Count: 1
       # Start: 5
       # Hostname: {{.Prefix}}{{.Index}} # default
       SANS:

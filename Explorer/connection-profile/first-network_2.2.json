@@ -11,10 +11,10 @@
 		"adminCredential": {
 			"id": "exploreradmin",
 			"password": "exploreradminpw",
-			"affiliation": "org1.department1"
+			"affiliation": "farmer.department1"
 		},
 		"enableAuthentication": true,
-		"organization": "Org1MSP",
+		"organization": "farmerMSP",
 		"connection": {
 			"timeout": {
 				"peer": {
@@ -27,7 +27,7 @@
 	"channels": {
 		"mychannel": {
 			"peers": {
-				"peer0.org1.example.com": {}
+				"peer0.farmer.example.com": {}
 			},
 			"connection": {
 				"timeout": {
@@ -41,28 +41,28 @@
 		}
 	},
 	"organizations": {
-		"Org1MSP": {
-			"mspid": "Org1MSP",
+		"farmerMSP": {
+			"mspid": "farmerMSP",
 			"adminPrivateKey": {
-				"path": "/etc/data/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/keystore/priv_sk"
+				"path": "/tmp/crypto/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/keystore/e09d62670d84407b514e25b30c9a3235ba266e519afcfda1b271ef29b5dfeded_sk"
 			},
 			"peers": [
-				"peer0.org1.example.com"
+				"peer0.farmer.example.com"
 			],
 			"signedCert": {
-				"path": "/etc/data/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem"
+				"path": "/tmp/crypto/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/signcerts/cert.pem"
 			}
 		}
 	},
 	"peers": {
-		"peer0.org1.example.com": {
+		"peer0.farmer.example.com": {
 			"tlsCACerts": {
-				"path": "/etc/data/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt"
+				"path": "/tmp/crypto/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls/ca.crt"
 			},
-			"url": "grpcs://peer0.org1.example.com:7051",
-			"eventUrl": "grpcs://peer0.org1.example.com:7053",
+			"url": "grpcs://peer0.farmer.example.com:7051",
+			"eventUrl": "grpcs://peer0.farmer.example.com:7053",
 			"grpcOptions": {
-				"ssl-target-name-override": "peer0.org1.example.com"
+				"ssl-target-name-override": "peer0.farmer.example.com"
 			}
 		}
 	}
