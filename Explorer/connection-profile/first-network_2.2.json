@@ -1,5 +1,5 @@
 {
-	"name": "first network (ignored)",
+	"name": "first-network",
 	"version": "1.0.0",
 	"license": "Apache-2.0",
 	"client": {
@@ -60,7 +60,7 @@
 				"path": "/tmp/crypto/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls/ca.crt"
 			},
 			"url": "grpcs://peer0.farmer.example.com:7051",
-			"eventUrl": "grpcs://peer0.farmer.example.com:7053",
+			"eventUrl": "grpcs://peer0.farmer.example.com:7052",
 			"grpcOptions": {
 				"ssl-target-name-override": "peer0.farmer.example.com"
 			}

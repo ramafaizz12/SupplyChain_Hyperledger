@@ -15,7 +15,13 @@
         "farmer": {
             "mspid": "farmerMSP",
             "peers": [
-                "peer0.farmer.example.com"
+                "peer0.farmer.example.com",
+                "peer0.consumer.example.com",
+                "peer0.distributor.example.com",
+                "peer0.manufacturer.example.com",
+                "peer0.retailer.example.com",
+                "peer0.wholesaler.example.com"
+
             ],
             "certificateAuthorities": [
                 "ca.farmer.example.com"
@@ -32,6 +38,8 @@
                 "ssl-target-name-override": "peer0.farmer.example.com",
                 "hostnameOverride": "peer0.farmer.example.com"
             }
+            
+            
         }
 
 	

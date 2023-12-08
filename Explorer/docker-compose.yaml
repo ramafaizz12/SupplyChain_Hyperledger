@@ -7,6 +7,8 @@ version: "2.1"
 
 networks:
   test:
+    external:
+        name: artifacts_test
    
 
 services:

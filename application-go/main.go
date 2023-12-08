@@ -24,7 +24,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
+
 	AuthController := controller.AuthController{
 		Db: db,
 	}
@@ -33,6 +35,10 @@ func main() {
 		log.Fatalf("Error setting DISCOVERY_AS_LOCALHOST environemnt variable: %v", err)
 	}
 
+	// discovery := os.Getenv("DISCOVERY_AS_LOCALHOST")
+	// if discovery == "" {
+	// 	discovery = "false"
+	// }
 	// contract := network.GetContract("scberas")
 	fabricHandler := &gatewayy.Gatewayy{
 		Db: db,
@@ -44,7 +50,7 @@ func main() {
 		})
 	})
 	router.POST("/register", AuthController.Register)
-	router.GET("/ReadAsset", AuthController.CheckAuth(), fabricHandler.ConnectToGateway, fabricHandler.ReadAsset)
+	router.POST("/ReadAsset", AuthController.CheckAuth(), fabricHandler.ConnectToGateway, fabricHandler.ReadAsset)
 	router.POST("/login", AuthController.Login)
 	router.GET("/coba", AuthController.CheckAuth())
 	router.POST("/AssetTransfer", AuthController.CheckAuth(), fabricHandler.ConnectToGateway, fabricHandler.AssetTransfer)
@@ -52,8 +58,13 @@ func main() {
 	router.GET("/cobaprofile", AuthController.CheckAuth(), AuthController.Profile)
 
 	router.POST("/LockAsset", AuthController.CheckAuth(), fabricHandler.ConnectToGateway, fabricHandler.LockAsset)
-
-	router.Run(":4444")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "4444"
+	}
+	if err := router.Run("0.0.0.0:" + port); err != nil {
+		log.Panicf("error: %s", err)
+	}
 
 }
 

@@ -464,39 +464,39 @@ checkinstallpacakage (){
 # presetup
 
 # packageChaincode
-# installChaincode
+installChaincode
 
-# queryInstalled
-# checkinstallpacakage
-# approveForMyOrg1
+queryInstalled
+checkinstallpacakage
+approveForMyOrg1
 
 
+sleep 3
+checkCommitReadyness
+approveForMyOrg2
+sleep 3
+checkCommitReadyness
+approveForMyOrg3
+sleep 3
+checkCommitReadyness
+approveForMyOrg4
+sleep 3
+checkCommitReadyness
+approveForMyOrg5
+sleep 3
+checkCommitReadyness
+approveForMyOrg6
+sleep 3
+checkCommitReadyness
+commitChaincodeDefination
+queryCommitted
+chaincodeInvokeInit
+sleep 5
+chaincodeInvoke
 # sleep 3
-# checkCommitReadyness
-# approveForMyOrg2
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg3
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg4
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg5
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg6
-# sleep 3
-# checkCommitReadyness
-# commitChaincodeDefination
-# queryCommitted
-# chaincodeInvokeInit
-# sleep 5
-# chaincodeInvoke
-# # sleep 3
-# chaincodeQuery
+chaincodeQuery
 # chaincodeUpdateAsset
 # chaincodeCreateAsset
-chaincodeLockAsset
+# chaincodeLockAsset
 
 

@@ -15,7 +15,12 @@
         "retailer": {
             "mspid": "retailerMSP",
             "peers": [
-                "peer0.retailer.example.com"
+                "peer0.farmer.example.com",
+                "peer0.consumer.example.com",
+                "peer0.distributor.example.com",
+                "peer0.manufacturer.example.com",
+                "peer0.retailer.example.com",
+                "peer0.wholesaler.example.com"
             ],
             "certificateAuthorities": [
                 "ca.retailer.example.com"

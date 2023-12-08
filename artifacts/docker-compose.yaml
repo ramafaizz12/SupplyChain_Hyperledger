@@ -131,7 +131,7 @@ services:
       - CORE_PEER_CHAINCODEADDRESS=peer0.farmer.example.com:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.farmer.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.farmer.example.com:7051
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.farmer.example.com:7051
 
@@ -141,6 +141,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+      - CORE_PEER_GATEWAY_ENABLED=true
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
@@ -181,12 +182,13 @@ services:
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.distributor.example.com:9051
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.distributor.example.com:10051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.distributor.example.com:9051
 
       - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+      - CORE_PEER_GATEWAY_ENABLED=true
       - CORE_METRICS_PROVIDER=prometheus
       # - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9440
       - CORE_PEER_TLS_ENABLED=true
@@ -226,7 +228,7 @@ services:
       # - CORE_PEER_CHAINCODEADDRESS=peer0.consumer.example.com:7052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.consumer.example.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.consumer.example.com:8051
 
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.consumer.example.com:8051
@@ -237,6 +239,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+      - CORE_PEER_GATEWAY_ENABLED=true
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
@@ -273,7 +276,7 @@ services:
       # - CORE_PEER_CHAINCODEADDRESS=peer0.manufacturer.example.com:7052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.manufacturer.example.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.manufacturer.example.com:9551
 
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.manufacturer.example.com:9551
@@ -284,6 +287,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+      - CORE_PEER_GATEWAY_ENABLED=true
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
@@ -320,7 +324,7 @@ services:
       # - CORE_PEER_CHAINCODEADDRESS=peer0.retailer.example.com:7052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.retailer.example.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.example.com:6551
 
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.example.com:6551
@@ -331,6 +335,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+      - CORE_PEER_GATEWAY_ENABLED=true
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
@@ -367,7 +372,7 @@ services:
       # - CORE_PEER_CHAINCODEADDRESS=peer0.wholesaler.example.com:7052
       # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
       # Peer used to bootstrap gossip within organisation
-      # - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.wholesaler.example.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.wholesaler.example.com:5551
 
       # Exposed for discovery Service
       - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.wholesaler.example.com:5551
@@ -378,6 +383,7 @@ services:
       - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb5:5984
       - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
       - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
+      - CORE_PEER_GATEWAY_ENABLED=true
       - CORE_METRICS_PROVIDER=prometheus
       - CORE_PEER_TLS_ENABLED=true
       - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt

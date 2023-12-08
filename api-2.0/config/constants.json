@@ -1,6 +1,6 @@
 {
     "host": "localhost",
-    "port": "4000",
+    "port": "4444",
     "jwt_expiretime": "36000",
     "channelName": "mychannel",
     "CC_SRC_PATH": "../artifacts",
