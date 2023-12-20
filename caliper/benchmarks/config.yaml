@@ -1,0 +1,47 @@
+test:
+  workers:
+    type: local
+    number: 1
+  rounds:
+    - label: Create Asset. 
+      txDuration: 30  #transaction duration 
+      rateControl:
+          type: fixed-load
+          opts:
+            tps: 5 #with  of 5 TPS
+      workload:
+        module: workload/v2/createAsset.js
+        arguments:
+          assets: 10
+          startKey: '1'
+          endKey: '50'
+    - label: Read Asset.
+      txDuration: 10
+      rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 5
+      workload:
+        module: workload/v2/queryAsset.js
+        arguments:
+          assets: 10
+    
+monitors:
+  resource:
+  - module: docker
+    options:
+      interval: 5 
+      containers:
+      - all
+    charting:
+      bar:
+        metrics: [Memory(avg), CPU%(avg)]
+      polar:
+        metrics: [all]
+  - module: process
+    options:
+      interval: 3
+      processes: [{ command: 'node', arguments: 'caliper', multiOutput: 'avg' }]
+    charting:
+      bar:
+        metrics: [all]

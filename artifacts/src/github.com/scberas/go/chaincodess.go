@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // SmartContract provides functions for managing an Asset
@@ -16,24 +16,27 @@ type SmartContract struct {
 
 // Asset describes basic details of what makes up a simple asset
 type Asset struct {
-	ID                      string                 `json:"ID"`
-	Nama_petani             string                 `json:"nama_petani"`
-	Jenis_beras             string                 `json:"jenis_beras"`
-	Owner                   string                 `json:"owner"`
-	Alamat                  string                 `json:"alamat"`
-	Tanggal_panen           string                 `json:"tanggal_panen"`
-	Konfirmasi_manufacturer bool                   `json:"konfirmasi_manufacturer"`
-	Konfirmasi_distributor  bool                   `json:"konfirmasi_distributor"`
-	Konfirmasi_retailer     bool                   `json:"konfirmasi_retailer"`
-	Konfirmasi_wholesaler   bool                   `json:"konfirmasi_wholesaler"`
-	Tanggal_diolah          string                 `json:"tanggal_diolah"`
-	Alamat_perusahaan       string                 `json:"alamat_perusahaan"`
-	Jumlah                  string                 `json:"jumlah"`
-	TimeStamp               *timestamppb.Timestamp `json:"timestamp"`
+	ID                      string `json:"ID"`
+	Nama_petani             string `json:"nama_petani"`
+	Jenis_beras             string `json:"jenis_beras"`
+	Owner                   string `json:"owner"`
+	Alamat                  string `json:"alamat"`
+	Tanggal_panen           string `json:"tanggal_panen"`
+	Konfirmasi_manufacturer bool   `json:"konfirmasi_manufacturer"`
+	Konfirmasi_distributor  bool   `json:"konfirmasi_distributor"`
+	Konfirmasi_retailer     bool   `json:"konfirmasi_retailer"`
+	Konfirmasi_wholesaler   bool   `json:"konfirmasi_wholesaler"`
+	Tanggal_diolah          string `json:"tanggal_diolah"`
+	Nohp                    string `json:"no_hp"`
+	Npwp                    string `json:"npwp"`
+	Alamat_perusahaan       string `json:"alamat_perusahaan"`
+	JumlahToWholesaler      string `json:"jumlahToWholesaler"`
+	JumlahToRetailer        string `json:"jumlahToRetailer"`
+	TimeStamp               string `json:"timestamp"`
 }
 
 // CreateAsset issues a new asset to the world state with given details.
-func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface, id string, jenis_beras string, nama_petani string, alamat string, tanggal_panen string) error {
+func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface, id string, jenis_beras string, nama_petani string, alamat string, tanggal_panen string, nohp string, npwp string) error {
 	exists, err := s.AssetExists(ctx, id)
 	if err != nil {
 		return err
@@ -56,6 +59,8 @@ func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface
 		Nama_petani:   nama_petani,
 		Owner:         "manufacturerMSP",
 		Alamat:        alamat,
+		Nohp:          nohp,
+		Npwp:          npwp,
 		Tanggal_panen: tanggal_panen,
 	}
 	assetJSON, err := json.Marshal(asset)
@@ -159,18 +164,20 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 
 	}
 
-	timestamp, err := ctx.GetStub().GetTxTimestamp()
+	// timestamp, err := ctx.GetStub().GetTxTimestamp()
+	dt := time.Now()
+	timestampp := dt.Format("01-02-2006 15:04:05")
 
 	if clientorg == "distributorMSP" {
 		asset.Owner = "wholesalerMSP"
-		asset.Jumlah = jumlah
-		asset.TimeStamp = timestamp
+		asset.JumlahToWholesaler = jumlah
+		asset.TimeStamp = timestampp
 
 	}
 	if clientorg == "wholesalerMSP" {
 		asset.Owner = "retailerMSP"
-		asset.Jumlah = jumlah
-		asset.TimeStamp = timestamp
+		asset.JumlahToRetailer = jumlah
+		asset.TimeStamp = timestampp
 
 	}
 	if clientorg == "retailerMSP" {

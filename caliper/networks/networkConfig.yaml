@@ -1,0 +1,25 @@
+name: Caliper test
+version: "2.0.0"
+
+caliper:
+  blockchain: fabric
+  sutOptions:
+    mutualTls: true
+
+channels:
+  - channelName: mychannel
+    contracts:
+      - id: scberas
+
+organizations:
+  - mspid: farmer
+    identities:
+      certificates:
+        - name: "User1"
+          clientPrivateKey:
+            path: "../Explorer/organizations/peerOrganizations/farmer.example.com/users/User1@farmer.example.com/msp/keystore/451cfd85c365172784ab0a0ff64f9994c8680ecaa0c2e5d4679c6a429bea1ac0_sk"
+          clientSignedCert:
+            path: "../Explorer/organizations/peerOrganizations/farmer.example.com/users/User1@farmer.example.com/msp/signcerts/cert.pem"
+    connectionProfile:
+      path: "../application-go/config/connection-farmer.json"
+      discover: true

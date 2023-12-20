@@ -1,0 +1,246 @@
+name: Fabric
+version: "1.0"
+mutual-tls: false
+
+caliper:
+  blockchain: fabric
+  # command:
+  #   start: export FABRIC_VERSION=1.4.4;export FABRIC_CA_VERSION=1.4.4;docker-compose -f networks/fabric/docker-compose/2org1peercouchdb_solo_raft/docker-compose-tls.yaml up -d;sleep 10s
+  #   end: docker-compose -f networks/fabric/docker-compose/2org1peercouchdb_solo_raft/docker-compose-tls.yaml down;(test -z \"$(docker ps -aq)\") || docker rm $(docker ps -aq);(test -z \"$(docker images dev* -q)\") || docker rmi $(docker images dev* -q);rm -rf /tmp/hfc-*
+
+info:
+  Version: 2.2.4
+  Size: 6 Orgs with 1 Peer
+  Orderer: Raft
+  Distribution: Single Host
+  StateDB: CouchDB
+
+clients:
+  client0.farmer.example.com:
+    client:
+      organization: farmer
+      credentialStore:
+        path: /tmp/hfc-kvs/farmer
+        cryptoStore:
+          path: /tmp/hfc-cvs/farmer
+      clientPrivateKey:
+        path: ../Explorer/organizations/peerOrganizations/farmer.example.com/users/User1@farmer.example.com/msp/keystore/451cfd85c365172784ab0a0ff64f9994c8680ecaa0c2e5d4679c6a429bea1ac0_sk
+      clientSignedCert:
+        path: ../Explorer/organizations/peerOrganizations/farmer.example.com/users/User1@farmer.example.com/msp/signcerts/cert.pem
+
+channels:
+  mychannel:
+    created: true
+    orderers:
+    - orderer.example.com
+    peers:
+      peer0.farmer.example.com:
+        eventSource: true
+      peer0.manufacturer.example.com:
+        eventSource: true
+      peer0.distributor.example.com:
+        eventSource: true
+      peer0.wholesaler.example.com:
+        eventSource: true
+      peer0.retailer.example.com:
+        eventSource: true
+      peer0.consumer.example.com:
+        eventSource: true
+
+    contracts:
+    - id: scberas
+      version: "1"
+      language: golang
+
+
+
+organizations:
+  farmer:
+    mspid: farmerMSP
+    peers:
+      - peer0.farmer.example.com
+     
+    certificateAuthorities:
+      - ca.farmer.example.com
+    adminPrivateKey:
+      path: ../Explorer/organizations/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/keystore/e09d62670d84407b514e25b30c9a3235ba266e519afcfda1b271ef29b5dfeded_sk
+    signedCert:
+      path: ../Explorer/organizations/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/signcerts/cert.pem
+
+  manufacturer:
+    mspid: manufacturerMSP
+    peers:
+      - peer0.manufacturer.example.com
+     
+    certificateAuthorities:
+      - ca.manufacturer.example.com
+    adminPrivateKey:
+      path: ../Explorer/organizations/peerOrganizations/manufacturer.example.com/users/Admin@manufacturer.example.com/msp/keystore/4d5704621dd073a0ae67be33cb29a6ecc841cc585468aca302d0976f5db9ce6b_sk
+    signedCert:
+      path: ../Explorer/organizations/peerOrganizations/manufacturer.example.com/users/Admin@manufacturer.example.com/msp/signcerts/cert.pem
+
+  distributor:
+    mspid: distributorMSP
+    peers:
+      - peer0.distributor.example.com
+     
+    certificateAuthorities:
+      - ca.distributor.example.com
+    adminPrivateKey:
+      path: ../Explorer/organizations/peerOrganizations/distributor.example.com/users/Admin@distributor.example.com/msp/keystore/d49ed12e6e435925c601836dba11c495ebd2d7fd8e7a31157124ae2655f86942_sk
+    signedCert:
+      path: ../Explorer/organizations/peerOrganizations/distributor.example.com/users/Admin@distributor.example.com/msp/signcerts/cert.pem
+
+  wholesaler:
+    mspid: wholesalerMSP
+    peers:
+      - peer0.wholesaler.example.com
+     
+    certificateAuthorities:
+      - ca.wholesaler.example.com
+    adminPrivateKey:
+      path: ../Explorer/organizations/peerOrganizations/wholesaler.example.com/users/Admin@wholesaler.example.com/msp/keystore/552e13a595d3598479ca98932a6d57146bc63b46af61e0b7790766fa9dc79265_sk
+    signedCert:
+      path: ../Explorer/organizations/peerOrganizations/wholesaler.example.com/users/Admin@wholesaler.example.com/msp/signcerts/cert.pem
+
+  retailer:
+    mspid: retailerMSP
+    peers:
+      - peer0.retailer.example.com
+     
+    certificateAuthorities:
+      - ca.retailer.example.com
+    adminPrivateKey:
+      path: ../Explorer/organizations/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com/msp/keystore/517072868b3e8d97e95ed56fc51561fb19def67c318226f9ecb48fc7adc2cad3_sk
+    signedCert:
+      path: ../Explorer/organizations/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com/msp/signcerts/cert.pem
+
+  consumer:
+    mspid: consumerMSP
+    peers:
+      - peer0.consumer.example.com
+     
+    certificateAuthorities:
+      - ca.consumer.example.com
+    adminPrivateKey:
+      path: ../Explorer/organizations/peerOrganizations/consumer.example.com/users/Admin@consumer.example.com/msp/keystore/0d364a151abfbcfbf87939f1cd2a4eac7ace29218f2b6ceba18fad2325c83768_sk
+    signedCert:
+      path: ../Explorer/organizations/peerOrganizations/consumer.example.com/users/Admin@consumer.example.com/msp/signcerts/cert.pem
+orderers:
+  orderer.example.com:
+    url: grpcs://localhost:7050
+    grpcOptions:
+      ssl-target-name-override: orderer.example.com
+    tlsCACerts:
+      path: ../Explorer/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+
+peers:
+  peer0.farmer.example.com:
+    url: grpcs://localhost:7051
+    grpcOptions:
+      ssl-target-name-override: peer0.farmer.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls/tlscacerts/tls-localhost-7054-ca-farmer-example-com.pem
+
+
+  peer0.manufacturer.example.com:
+    url: grpcs://localhost:9551
+    grpcOptions:
+      ssl-target-name-override: peer0.manufacturer.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/manufacturer.example.com/peers/peer0.manufacturer.example.com/tls/tlscacerts/tls-localhost-1056-ca-manufacturer-example-com.pem
+  
+  peer0.distributor.example.com:
+    url: grpcs://localhost:9051
+    grpcOptions:
+      ssl-target-name-override: peer0.distributor.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/distributor.example.com/peers/peer0.distributor.example.com/tls/tlscacerts/tls-localhost-8054-ca-distributor-example-com.pem
+
+  peer0.wholesaler.example.com:
+    url: grpcs://localhost:5551
+    grpcOptions:
+      ssl-target-name-override: peer0.wholesaler.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/wholesaler.example.com/peers/peer0.wholesaler.example.com/tls/tlscacerts/tls-localhost-2054-ca-wholesaler-example-com.pem
+
+  peer0.retailer.example.com:
+    url: grpcs://localhost:6551
+    grpcOptions:
+      ssl-target-name-override: peer0.retailer.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/tlscacerts/tls-localhost-1054-ca-retailer-example-com.pem
+
+  peer0.consumer.example.com:
+    url: grpcs://localhost:8051
+    grpcOptions:
+      ssl-target-name-override: peer0.consumer.example.com
+      grpc.keepalive_time_ms: 600000
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/consumer.example.com/peers/peer0.consumer.example.com/tls/tlscacerts/tls-localhost-10054-ca-consumer-example-com.pem
+
+certificateAuthorities:
+  ca.farmer.example.com:
+    url: https://localhost:7054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/farmer.example.com/tlsca/tlsca.farmer.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+
+  ca.manufacturer.example.com:
+    url: https://localhost:1056
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/manufacturer.example.com/tlsca/tlsca.manufacturer.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+
+  ca.distributor.example.com:
+    url: https://localhost:8054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/distributor.example.com/tlsca/tlsca.distributor.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+
+  ca.wholesaler.example.com:
+    url: https://localhost:2054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/wholesaler.example.com/tlsca/tlsca.wholesaler.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+
+  ca.retailer.example.com:
+    url: https://localhost:1054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/retailer.example.com/tlsca/tlsca.retailer.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
+
+  ca.consumer.example.com:
+    url: https://localhost:10054
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: ../Explorer/organizations/peerOrganizations/consumer.example.com/tlsca/tlsca.consumer.example.com-cert.pem
+    registrar:
+      - enrollId: admin
+        enrollSecret: adminpw
