@@ -91,16 +91,7 @@ services:
     networks:
       - test
 
-  couchdb4:
-    container_name: couchdb4
-    image: couchdb:3.1.1
-    environment:
-      - COUCHDB_USER=admin
-      - COUCHDB_PASSWORD=adminpw
-    ports:
-      - 9984:5984
-    networks:
-      - test
+  
 
   couchdb5:
     container_name: couchdb5
@@ -306,53 +297,6 @@ services:
     networks:
       - test
 
-  peer0.retailer.example.com:
-    container_name: peer0.retailer.example.com
-    extends:
-      file: base.yaml
-      service: peer-base
-    environment:
-      - FABRIC_LOGGING_SPEC=info
-      - ORDERER_GENERAL_LOGLEVEL=info
-      - CORE_PEER_LOCALMSPID=retailerMSP
-
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_test
-
-      - CORE_PEER_ID=peer0.retailer.example.com
-      - CORE_PEER_ADDRESS=peer0.retailer.example.com:6551
-      - CORE_PEER_LISTENADDRESS=0.0.0.0:6551
-      # - CORE_PEER_CHAINCODEADDRESS=peer0.retailer.example.com:7052
-      # - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      # Peer used to bootstrap gossip within organisation
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.retailer.example.com:6551
-
-      # Exposed for discovery Service
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.retailer.example.com:6551
-
-      # - CORE_OPERATIONS_LISTENADDRESS=0.0.0.0:9440
-
-      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb4:5984
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=admin
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=adminpw
-      - CORE_PEER_GATEWAY_ENABLED=true
-      - CORE_METRICS_PROVIDER=prometheus
-      - CORE_PEER_TLS_ENABLED=true
-      - CORE_PEER_TLS_CERT_FILE=/etc/hyperledger/crypto/peer/tls/server.crt
-      - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/crypto/peer/tls/server.key
-      - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/crypto/peer/tls/ca.crt
-      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/crypto/peer/msp
-    depends_on:
-      - couchdb4
-    ports:
-      - 6551:6551
-    volumes:
-      - ./channel/crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/msp:/etc/hyperledger/crypto/peer/msp
-      - ./channel/crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls:/etc/hyperledger/crypto/peer/tls
-      - /var/run/:/host/var/run/
-      # - /var/pavan/peer0-retailer:/var/hyperledger/production
-    networks:
-      - test
 
   peer0.wholesaler.example.com:
     container_name: peer0.wholesaler.example.com

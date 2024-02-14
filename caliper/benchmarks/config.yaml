@@ -25,7 +25,20 @@ test:
         module: workload/v2/queryAsset.js
         arguments:
           assets: 10
-    
+          startKey: '1'
+          endKey: '50'
+    - label: TransferAsset.
+      txDuration: 10
+      rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 5
+      workload:
+        module: workload/v2/TransferAsset.js
+        arguments:
+          assets: 10
+          startKey: '1'
+          endKey: '50'
 monitors:
   resource:
   - module: docker

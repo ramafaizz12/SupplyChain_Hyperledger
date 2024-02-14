@@ -128,13 +128,15 @@
                 <li>DLT: &nbsp<span style="font-weight: 500;">fabric</span></li>
                 <li>Name: &nbsp<span style="font-weight: 500;"></span></li>
                 <li>Description: &nbsp<span style="font-weight: 500;"></span></li>
-                <li>Benchmark Rounds: &nbsp<span style="font-weight: 500;">2</span></li>
+                <li>Benchmark Rounds: &nbsp<span style="font-weight: 500;">3</span></li>
                 <li><a href="#benchmarkInfo">Details</a></li>
             </ul>
             <ul>
                 <h3>&nbspBenchmark results</h3>
                 <li><a href="#benchmarksummary">Summary</a></li>
                     <li><a href="#Create Asset.">Create Asset.</a></li>
+                    <li><a href="#Read Asset.">Read Asset.</a></li>
+                    <li><a href="#TransferAsset.">TransferAsset.</a></li>
             </ul>
             <ul>
                 <h3>&nbspSystem under test</h3>
@@ -157,7 +159,13 @@
                     </tr>
 
                     <tr>
-                         <td>Create Asset.</td> <td>164</td> <td>0</td> <td>5.3</td> <td>4.68</td> <td>0.56</td> <td>1.36</td> <td>5.0</td>
+                         <td>Create Asset.</td> <td>216</td> <td>0</td> <td>7.1</td> <td>3.07</td> <td>0.38</td> <td>1.04</td> <td>6.7</td>
+                    </tr>
+                    <tr>
+                         <td>Read Asset.</td> <td>1092</td> <td>0</td> <td>111.5</td> <td>0.09</td> <td>0.01</td> <td>0.02</td> <td>111.3</td>
+                    </tr>
+                    <tr>
+                         <td>TransferAsset.</td> <td>25</td> <td>0</td> <td>1.9</td> <td>2.81</td> <td>0.62</td> <td>2.06</td> <td>1.6</td>
                     </tr>
                 </table>
             </div>
@@ -176,7 +184,7 @@ rateControl:
                                      <th>Name</th> <th>Succ</th> <th>Fail</th> <th>Send Rate (TPS)</th> <th>Max Latency (s)</th> <th>Min Latency (s)</th> <th>Avg Latency (s)</th> <th>Throughput (TPS)</th>
                                 </tr>
                                 <tr>
-                                     <td>Create Asset.</td> <td>164</td> <td>0</td> <td>5.3</td> <td>4.68</td> <td>0.56</td> <td>1.36</td> <td>5.0</td>
+                                     <td>Create Asset.</td> <td>216</td> <td>0</td> <td>7.1</td> <td>3.07</td> <td>0.38</td> <td>1.04</td> <td>6.7</td>
                                 </tr>
                             </table>
                         <h3>Resource utilization for Create Asset.</h3>
@@ -188,22 +196,61 @@ rateControl:
                                          <th>Name</th> <th>CPU%(max)</th> <th>CPU%(avg)</th> <th>Memory(max) [MB]</th> <th>Memory(avg) [MB]</th> <th>Traffic In [MB]</th> <th>Traffic Out [MB]</th> <th>Disc Write [B]</th> <th>Disc Read [B]</th>
                                     </tr>
                                     <tr>
-                                         <td>dev-peer0.consumer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>2.85</td> <td>1.32</td> <td>20.0</td> <td>18.7</td> <td>0.335</td> <td>0.184</td> <td>0.00</td> <td>0.00</td>
+                                         <td>dev-peer0.manufacturer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>3.31</td> <td>1.31</td> <td>16.6</td> <td>14.8</td> <td>0.436</td> <td>0.244</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>dev-peer0.farmer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>1.78</td> <td>0.76</td> <td>22.0</td> <td>19.1</td> <td>0.328</td> <td>0.181</td> <td>0.00</td> <td>0.00</td>
+                                         <td>dev-peer0.consumer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>2.50</td> <td>1.12</td> <td>16.9</td> <td>14.8</td> <td>0.436</td> <td>0.241</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>dev-peer0.wholesaler.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>2.11</td> <td>0.67</td> <td>23.3</td> <td>21.5</td> <td>0.334</td> <td>0.184</td> <td>0.00</td> <td>0.00</td>
+                                         <td>dev-peer0.farmer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>2.19</td> <td>0.92</td> <td>17.3</td> <td>15.2</td> <td>0.443</td> <td>0.250</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>dev-peer0.retailer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>2.55</td> <td>0.86</td> <td>21.7</td> <td>19.1</td> <td>0.335</td> <td>0.186</td> <td>0.00</td> <td>0.00</td>
+                                         <td>dev-peer0.wholesaler.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>3.37</td> <td>1.03</td> <td>17.0</td> <td>14.8</td> <td>0.433</td> <td>0.237</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>dev-peer0.distributor.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>1.40</td> <td>0.61</td> <td>21.9</td> <td>19.3</td> <td>0.334</td> <td>0.184</td> <td>0.00</td> <td>0.00</td>
+                                         <td>dev-peer0.retailer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>4.85</td> <td>1.41</td> <td>15.8</td> <td>13.8</td> <td>0.440</td> <td>0.245</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>dev-peer0.manufacturer.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>2.20</td> <td>0.72</td> <td>21.8</td> <td>19.1</td> <td>0.339</td> <td>0.189</td> <td>0.00</td> <td>0.00</td>
+                                         <td>dev-peer0.distributor.example.com-scberas_1-0009f808be92c195b6ffdd01976e3ee3de855fe78090be1f3e5eb2544c41f727</td> <td>3.78</td> <td>1.22</td> <td>15.6</td> <td>13.7</td> <td>0.437</td> <td>0.245</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>peer0.consumer.example.com</td> <td>18.34</td> <td>10.82</td> <td>96.2</td> <td>94.8</td> <td>2.94</td> <td>1.27</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>peer0.farmer.example.com</td> <td>21.81</td> <td>11.44</td> <td>123</td> <td>119</td> <td>2.97</td> <td>1.30</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>peer0.wholesaler.example.com</td> <td>19.78</td> <td>10.95</td> <td>110</td> <td>107</td> <td>2.95</td> <td>1.28</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>peer0.retailer.example.com</td> <td>21.12</td> <td>10.51</td> <td>114</td> <td>112</td> <td>2.95</td> <td>1.27</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>peer0.manufacturer.example.com</td> <td>20.54</td> <td>10.73</td> <td>112</td> <td>109</td> <td>2.95</td> <td>1.28</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>peer0.distributor.example.com</td> <td>20.18</td> <td>10.55</td> <td>97.1</td> <td>95.6</td> <td>2.96</td> <td>1.28</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>couchdb5</td> <td>20.11</td> <td>8.64</td> <td>59.6</td> <td>58.5</td> <td>0.215</td> <td>0.168</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>couchdb2</td> <td>22.30</td> <td>10.57</td> <td>67.9</td> <td>66.6</td> <td>0.215</td> <td>0.167</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>orderer.example.com</td> <td>9.75</td> <td>3.41</td> <td>45.0</td> <td>41.1</td> <td>2.16</td> <td>12.0</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>couchdb4</td> <td>23.95</td> <td>11.39</td> <td>62.0</td> <td>61.3</td> <td>0.215</td> <td>0.170</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>couchdb0</td> <td>17.94</td> <td>9.94</td> <td>66.3</td> <td>65.5</td> <td>0.214</td> <td>0.168</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>couchdb3</td> <td>22.02</td> <td>10.03</td> <td>62.9</td> <td>62.3</td> <td>0.214</td> <td>0.169</td> <td>0.00</td> <td>0.00</td>
+                                    </tr>
+                                    <tr>
+                                         <td>couchdb1</td> <td>24.21</td> <td>10.26</td> <td>61.7</td> <td>60.7</td> <td>0.214</td> <td>0.167</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
                                          <td>explorer.mynetwork.com</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>-</td> <td>0.00</td> <td>0.00</td>
@@ -212,64 +259,25 @@ rateControl:
                                          <td>explorerdb.mynetwork.com</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>-</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>peer0.manufacturer.example.com</td> <td>19.40</td> <td>11.22</td> <td>98.5</td> <td>95.3</td> <td>2.30</td> <td>1.02</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca.wholesaler.example.com</td> <td>0.00</td> <td>0.00</td> <td>9.95</td> <td>9.95</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>peer0.farmer.example.com</td> <td>18.93</td> <td>12.11</td> <td>92.6</td> <td>88.4</td> <td>2.28</td> <td>1.03</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca.retailer.example.com</td> <td>0.00</td> <td>0.00</td> <td>13.0</td> <td>13.0</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>peer0.distributor.example.com</td> <td>24.74</td> <td>12.25</td> <td>105</td> <td>101</td> <td>2.28</td> <td>1.01</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca_orderer</td> <td>0.00</td> <td>0.00</td> <td>12.2</td> <td>12.2</td> <td>0.0000668</td> <td>0.00</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>peer0.wholesaler.example.com</td> <td>17.24</td> <td>11.11</td> <td>104</td> <td>101</td> <td>2.30</td> <td>1.01</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca.farmer.example.com</td> <td>0.00</td> <td>0.00</td> <td>13.0</td> <td>13.0</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>peer0.consumer.example.com</td> <td>21.16</td> <td>11.06</td> <td>101</td> <td>98.6</td> <td>2.28</td> <td>1.01</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca.manufacturer.example.com</td> <td>0.00</td> <td>0.00</td> <td>12.1</td> <td>12.1</td> <td>0.000126</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>peer0.retailer.example.com</td> <td>18.85</td> <td>11.07</td> <td>104</td> <td>101</td> <td>2.28</td> <td>1.03</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca.distributor.example.com</td> <td>0.00</td> <td>0.00</td> <td>12.2</td> <td>12.2</td> <td>0.000193</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                     <tr>
-                                         <td>couchdb3</td> <td>15.95</td> <td>8.98</td> <td>74.4</td> <td>73.3</td> <td>0.162</td> <td>0.128</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>couchdb0</td> <td>21.34</td> <td>9.91</td> <td>79.1</td> <td>78.1</td> <td>0.163</td> <td>0.126</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>couchdb2</td> <td>20.96</td> <td>10.75</td> <td>77.8</td> <td>77.0</td> <td>0.162</td> <td>0.128</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>couchdb4</td> <td>23.97</td> <td>11.86</td> <td>73.9</td> <td>72.8</td> <td>0.162</td> <td>0.127</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>orderer.example.com</td> <td>6.15</td> <td>3.00</td> <td>60.0</td> <td>54.8</td> <td>1.65</td> <td>9.16</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>couchdb1</td> <td>21.23</td> <td>12.24</td> <td>76.6</td> <td>75.8</td> <td>0.163</td> <td>0.128</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>couchdb5</td> <td>22.14</td> <td>10.51</td> <td>74.9</td> <td>73.9</td> <td>0.162</td> <td>0.128</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca.wholesaler.example.com</td> <td>0.00</td> <td>0.00</td> <td>14.0</td> <td>14.0</td> <td>0.000126</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca.retailer.example.com</td> <td>0.00</td> <td>0.00</td> <td>12.7</td> <td>12.7</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca_orderer</td> <td>0.00</td> <td>0.00</td> <td>11.8</td> <td>11.8</td> <td>0.00</td> <td>0.00</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca.farmer.example.com</td> <td>0.00</td> <td>0.00</td> <td>22.5</td> <td>22.5</td> <td>0.000126</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca.manufacturer.example.com</td> <td>0.00</td> <td>0.00</td> <td>16.2</td> <td>16.2</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca.distributor.example.com</td> <td>0.00</td> <td>0.00</td> <td>12.8</td> <td>12.8</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
-                                    </tr>
-                                    <tr>
-                                         <td>ca.consumer.example.com</td> <td>0.00</td> <td>0.00</td> <td>16.8</td> <td>16.8</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
+                                         <td>ca.consumer.example.com</td> <td>0.04</td> <td>0.00</td> <td>13.8</td> <td>13.7</td> <td>0.000189</td> <td>0.000149</td> <td>0.00</td> <td>0.00</td>
                                     </tr>
                                 </table>
                                 </tr>
@@ -284,7 +292,79 @@ rateControl:
                                          <th>Name</th> <th>CPU%(max)</th> <th>CPU%(avg)</th> <th>Memory(max) [B]</th> <th>Memory(avg) [B]</th>
                                     </tr>
                                     <tr>
-                                         <td>node caliper(avg)</td> <td>23.34</td> <td>10.89</td> <td>-</td> <td>-</td>
+                                         <td>node caliper(avg)</td> <td>22.99</td> <td>12.81</td> <td>-</td> <td>-</td>
+                                    </tr>
+                                </table>
+                                </tr>
+                            </table>
+                            <div class="charting">
+                            </div>
+            </div>
+
+            <div style="border-bottom: 1px solid #d9d9d9; padding-bottom: 10px;" id="Read Asset.">
+                <h2>Benchmark round: Read Asset.</h2>
+                <p></p>
+                <pre style="overflow: visible;white-space: pre-wrap;max-height:100%;">txDuration: 10
+rateControl:
+  type: fixed-load
+  opts:
+    transactionLoad: 5
+</pre>
+                        <h3>Performance metrics for Read Asset.</h3>
+                            <table style="min-width: 100%;">
+                                <tr>
+                                     <th>Name</th> <th>Succ</th> <th>Fail</th> <th>Send Rate (TPS)</th> <th>Max Latency (s)</th> <th>Min Latency (s)</th> <th>Avg Latency (s)</th> <th>Throughput (TPS)</th>
+                                </tr>
+                                <tr>
+                                     <td>Read Asset.</td> <td>1092</td> <td>0</td> <td>111.5</td> <td>0.09</td> <td>0.01</td> <td>0.02</td> <td>111.3</td>
+                                </tr>
+                            </table>
+                        <h3>Resource utilization for Read Asset.</h3>
+                            <h4>Resource monitor: process</h4>
+                            <table style="min-width: 100%;">
+                                <tr>
+                                <table>
+                                    <tr>
+                                         <th>Name</th> <th>CPU%(max)</th> <th>CPU%(avg)</th> <th>Memory(max) [B]</th> <th>Memory(avg) [B]</th>
+                                    </tr>
+                                    <tr>
+                                         <td>node caliper(avg)</td> <td>51.67</td> <td>35.44</td> <td>-</td> <td>-</td>
+                                    </tr>
+                                </table>
+                                </tr>
+                            </table>
+                            <div class="charting">
+                            </div>
+            </div>
+
+            <div style="border-bottom: 1px solid #d9d9d9; padding-bottom: 10px;" id="TransferAsset.">
+                <h2>Benchmark round: TransferAsset.</h2>
+                <p></p>
+                <pre style="overflow: visible;white-space: pre-wrap;max-height:100%;">txDuration: 10
+rateControl:
+  type: fixed-load
+  opts:
+    transactionLoad: 5
+</pre>
+                        <h3>Performance metrics for TransferAsset.</h3>
+                            <table style="min-width: 100%;">
+                                <tr>
+                                     <th>Name</th> <th>Succ</th> <th>Fail</th> <th>Send Rate (TPS)</th> <th>Max Latency (s)</th> <th>Min Latency (s)</th> <th>Avg Latency (s)</th> <th>Throughput (TPS)</th>
+                                </tr>
+                                <tr>
+                                     <td>TransferAsset.</td> <td>25</td> <td>0</td> <td>1.9</td> <td>2.81</td> <td>0.62</td> <td>2.06</td> <td>1.6</td>
+                                </tr>
+                            </table>
+                        <h3>Resource utilization for TransferAsset.</h3>
+                            <h4>Resource monitor: process</h4>
+                            <table style="min-width: 100%;">
+                                <tr>
+                                <table>
+                                    <tr>
+                                         <th>Name</th> <th>CPU%(max)</th> <th>CPU%(avg)</th> <th>Memory(max) [B]</th> <th>Memory(avg) [B]</th>
+                                    </tr>
+                                    <tr>
+                                         <td>node caliper(avg)</td> <td>15.71</td> <td>5.46</td> <td>-</td> <td>-</td>
                                     </tr>
                                 </table>
                                 </tr>
@@ -322,6 +402,20 @@ rounds:
       module: workload&#x2F;v2&#x2F;queryAsset.js
       arguments:
         assets: 10
+        startKey: &#39;1&#39;
+        endKey: &#39;50&#39;
+  - label: TransferAsset.
+    txDuration: 10
+    rateControl:
+      type: fixed-load
+      opts:
+        transactionLoad: 5
+    workload:
+      module: workload&#x2F;v2&#x2F;TransferAsset.js
+      arguments:
+        assets: 10
+        startKey: &#39;1&#39;
+        endKey: &#39;50&#39;
 </pre>
                 <h3>SUT</h3>
                 <pre id="sutdetails">not provided</pre>

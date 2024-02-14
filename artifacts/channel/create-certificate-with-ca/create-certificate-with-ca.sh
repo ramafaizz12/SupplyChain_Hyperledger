@@ -90,6 +90,98 @@ createcertificatesForFarmer() {
   cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/config.yaml
 
 }
+createcertificatesForFarmerLain() {
+  echo
+  echo "Enroll the CA admin"
+  echo
+  mkdir -p ../crypto-config/peerOrganizations/farmer.example.com/
+  export FABRIC_CA_CLIENT_HOME=${PWD}/../crypto-config/peerOrganizations/farmer.example.com/
+
+   
+  fabric-ca-client enroll -u https://admin:adminpw@localhost:7054 --caname ca.farmer.example.com --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+   
+
+  echo 'NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/localhost-7054-ca-farmer-example-com.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/localhost-7054-ca-farmer-example-com.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/localhost-7054-ca-farmer-example-com.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/localhost-7054-ca-farmer-example-com.pem
+    OrganizationalUnitIdentifier: orderer' >${PWD}/../crypto-config/peerOrganizations/farmer.example.com/msp/config.yaml
+
+  echo
+  echo "Register peer0"
+  echo
+  fabric-ca-client register --caname ca.farmer.example.com --id.name peer1 --id.secret peer1pw --id.type peer --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  echo
+  echo "Register user"
+  echo
+  fabric-ca-client register --caname ca.farmer.example.com --id.name user2 --id.secret user2pw --id.type client --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  echo
+  echo "Register the org admin"
+  echo
+  fabric-ca-client register --caname ca.farmer.example.com --id.name farmeradmin --id.secret farmeradminpw --id.type admin --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  mkdir -p ../crypto-config/peerOrganizations/farmer.example.com/peers
+
+  # -----------------------------------------------------------------------------------
+  #  Peer 0
+  mkdir -p ../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com
+
+  echo
+  echo "## Generate the peer1 msp"
+  echo
+  fabric-ca-client enroll -u https://peer1:peer1pw@localhost:7054 --caname ca.farmer.example.com -M ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/msp --csr.hosts peer1.farmer.example.com --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/msp/config.yaml
+
+  echo
+  echo "## Generate the peer0-tls certificates"
+  echo
+  fabric-ca-client enroll -u https://peer1:peer0pw@localhost:7054 --caname ca.farmer.example.com -M ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls --enrollment.profile tls --csr.hosts peer1.farmer.example.com --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls/ca.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls/signcerts/* ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls/server.crt
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls/keystore/* ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer1.farmer.example.com/tls/server.key
+
+  mkdir ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/msp/tlscacerts
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/msp/tlscacerts/ca.crt
+
+  mkdir ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/tlsca
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/tlsca/tlsca.farmer.example.com-cert.pem
+
+  mkdir ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/ca
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/peers/peer0.farmer.example.com/msp/cacerts/* ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/ca/ca.farmer.example.com-cert.pem
+
+  # --------------------------------------------------------------------------------------------------
+
+  mkdir -p ../crypto-config/peerOrganizations/farmer.example.com/users
+  mkdir -p ../crypto-config/peerOrganizations/farmer.example.com/users/User1@farmer.example.com
+
+  echo
+  echo "## Generate the user msp"
+  echo
+  fabric-ca-client enroll -u https://user1:user1pw@localhost:7054 --caname ca.farmer.example.com -M ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/users/User1@farmer.example.com/msp --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  mkdir -p ../crypto-config/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com
+
+  echo
+  echo "## Generate the org admin msp"
+  echo
+  fabric-ca-client enroll -u https://farmeradmin:farmeradminpw@localhost:7054 --caname ca.farmer.example.com -M ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp --tls.certfiles ${PWD}/fabric-ca/farmer/tls-cert.pem
+
+  cp ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/config.yaml
+
+}
 
 # createcertificatesForOrg1
 
@@ -308,113 +400,6 @@ createCertificatesForManufacturer() {
 }
 
 # createCertificateForOrg2
-
-createCertificatesForRetailer() {
-  echo
-  echo "Enroll the CA admin"
-  echo
-  mkdir -p ../crypto-config/peerOrganizations/retailer.example.com/
-
-  export FABRIC_CA_CLIENT_HOME=${PWD}/../crypto-config/peerOrganizations/retailer.example.com/
-
-   
-  fabric-ca-client enroll -u https://admin:adminpw@localhost:1054 --caname ca.retailer.example.com --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  echo 'NodeOUs:
-  Enable: true
-  ClientOUIdentifier:
-    Certificate: cacerts/localhost-1054-ca-retailer-example-com.pem
-    OrganizationalUnitIdentifier: client
-  PeerOUIdentifier:
-    Certificate: cacerts/localhost-1054-ca-retailer-example-com.pem
-    OrganizationalUnitIdentifier: peer
-  AdminOUIdentifier:
-    Certificate: cacerts/localhost-1054-ca-retailer-example-com.pem
-    OrganizationalUnitIdentifier: admin
-  OrdererOUIdentifier:
-    Certificate: cacerts/localhost-1054-ca-retailer-example-com.pem
-    OrganizationalUnitIdentifier: orderer' >${PWD}/../crypto-config/peerOrganizations/retailer.example.com/msp/config.yaml
-
-  echo
-  echo "Register peer0"
-  echo
-   
-  fabric-ca-client register --caname ca.retailer.example.com --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  echo
-  echo "Register user"
-  echo
-   
-  fabric-ca-client register --caname ca.retailer.example.com --id.name user1 --id.secret user1pw --id.type client --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  echo
-  echo "Register the org admin"
-  echo
-   
-  fabric-ca-client register --caname ca.retailer.example.com --id.name retaileradmin --id.secret retaileradminpw --id.type admin --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  mkdir -p ../crypto-config/peerOrganizations/retailer.example.com/peers
-  mkdir -p ../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com
-
-  # --------------------------------------------------------------
-  # Peer 0
-  echo
-  echo "## Generate the peer0 msp"
-  echo
-   
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:1054 --caname ca.retailer.example.com -M ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/msp --csr.hosts peer0.retailer.example.com --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/msp/config.yaml
-
-  echo
-  echo "## Generate the peer0-tls certificates"
-  echo
-   
-  fabric-ca-client enroll -u https://peer0:peer0pw@localhost:1054 --caname ca.retailer.example.com -M ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls --enrollment.profile tls --csr.hosts peer0.retailer.example.com --csr.hosts localhost --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/ca.crt
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/signcerts/* ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/server.crt
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/keystore/* ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/server.key
-
-  mkdir ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/msp/tlscacerts
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/msp/tlscacerts/ca.crt
-
-  mkdir ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/tlsca
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/tlscacerts/* ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/tlsca/tlsca.retailer.example.com-cert.pem
-
-  mkdir ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/ca
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/msp/cacerts/* ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/ca/ca.retailer.example.com-cert.pem
-
-  # --------------------------------------------------------------------------------
-
-  mkdir -p ../crypto-config/peerOrganizations/retailer.example.com/users
-  mkdir -p ../crypto-config/peerOrganizations/retailer.example.com/users/User1@retailer.example.com
-
-  echo
-  echo "## Generate the user msp"
-  echo
-   
-  fabric-ca-client enroll -u https://user1:user1pw@localhost:1054 --caname ca.retailer.example.com -M ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/users/User1@retailer.example.com/msp --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  mkdir -p ../crypto-config/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com
-
-  echo
-  echo "## Generate the org admin msp"
-  echo
-   
-  fabric-ca-client enroll -u https://retaileradmin:retaileradminpw@localhost:1054 --caname ca.retailer.example.com -M ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com/msp --tls.certfiles ${PWD}/fabric-ca/retailer/tls-cert.pem
-   
-
-  cp ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/msp/config.yaml ${PWD}/../crypto-config/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com/msp/config.yaml
-
-}
 
 createCertificatesForConsumer() {
   echo
@@ -724,12 +709,11 @@ createCretificatesForOrderer() {
 
 # sudo rm -rf ../crypto-config/*
 # sudo rm -rf fabric-ca/*
-# createcertificatesForFarmer
-# createCertificatesForDistributor
-# createCertificatesForManufacturer
-# createCertificatesForConsumer
-# createCertificatesForRetailer
-# createCertificatesForWholesaler
+createcertificatesForFarmer
+createCertificatesForDistributor
+createCertificatesForManufacturer
+createCertificatesForConsumer
+createCertificatesForWholesaler
 
-# createCretificatesForOrderer
+createCretificatesForOrderer
 

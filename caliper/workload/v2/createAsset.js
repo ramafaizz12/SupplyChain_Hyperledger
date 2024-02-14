@@ -39,7 +39,7 @@ class CreateCarWorkload extends WorkloadModuleBase {
      */
     async submitTransaction() {
         this.txIndex++;
-        let carNumber = 'Client' + this.workerIndex + '_Asset' + this.txIndex.toString();
+        let carNumber = 'Client' + this.workerIndex + '_Asset1' + this.txIndex.toString();
         let carColor = colors[Math.floor(Math.random() * colors.length)];
         let carMake = makes[Math.floor(Math.random() * makes.length)];
         let carModel = models[Math.floor(Math.random() * models.length)];

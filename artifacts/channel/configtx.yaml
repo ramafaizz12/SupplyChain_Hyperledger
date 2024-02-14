@@ -114,31 +114,6 @@ Organizations:
             - Host: peer0.manufacturer.example.com
               Port: 9551
 
-    - &retailer
-        Name: retailerMSP
-        ID: retailerMSP
-        MSPDir: crypto-config/peerOrganizations/retailer.example.com/msp
-        Policies:
-            Readers:
-                Type: Signature
-                Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
-            Writers:
-                Type: Signature
-                Rule: "OR('retailerMSP.admin', 'retailerMSP.client')"
-            Admins:
-                Type: Signature
-                Rule: "OR('retailerMSP.admin')"
-            Endorsement:
-                Type: Signature
-                Rule: "OR('retailerMSP.peer')"
-            # CustomPolicy:
-            #     Type: Signature
-            #     Rule: "OR('Org1MSP.admin')"
-
-        AnchorPeers:
-            - Host: peer0.retailer.example.com
-              Port: 6551
-
     - &wholesaler
         Name: wholesalerMSP
         ID: wholesalerMSP
@@ -343,7 +318,6 @@ Profiles:
                 - *consumer
                 - *distributor
                 - *manufacturer
-                - *retailer
                 - *wholesaler
             Capabilities:
                 <<: *ApplicationCapabilities
@@ -376,5 +350,4 @@ Profiles:
                 - *consumer
                 - *distributor
                 - *manufacturer
-                - *retailer
                 - *wholesaler

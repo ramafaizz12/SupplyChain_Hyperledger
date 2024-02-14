@@ -6,7 +6,7 @@ export PEER0_consumer_CA=${PWD}/artifacts/channel/crypto-config/peerOrganization
 export PEER0_manufacturer_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/manufacturer.example.com/peers/peer0.manufacturer.example.com/tls/ca.crt
 export PEER0_retailer_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/retailer.example.com/peers/peer0.retailer.example.com/tls/ca.crt
 export PEER0_wholesaler_CA=${PWD}/artifacts/channel/crypto-config/peerOrganizations/wholesaler.example.com/peers/peer0.wholesaler.example.com/tls/ca.crt
-export FABRIC_CFG_PATH=${PWD}/artifacts/channel/config/
+export FABRIC_CFG_PATH=${PWD}/config/
 
 export CHANNEL_NAME=mychannel
 
@@ -41,13 +41,7 @@ setGlobalsForPeer0manufacturer(){
     
 }
 
-setGlobalsForPeer0retailer(){
-    export CORE_PEER_LOCALMSPID="retailerMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_retailer_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/artifacts/channel/crypto-config/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com/msp
-    export CORE_PEER_ADDRESS=localhost:6551
-    
-}
+
 
 setGlobalsForPeer0wholesaler(){
     export CORE_PEER_LOCALMSPID="wholesalerMSP"
@@ -89,8 +83,7 @@ joinChannel(){
     setGlobalsForPeer0consumer
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
 
-    setGlobalsForPeer0retailer
-    peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
+    
 
     setGlobalsForPeer0wholesaler
     peer channel join -b ./channel-artifacts/$CHANNEL_NAME.block
@@ -107,8 +100,7 @@ updateAnchorPeers(){
     setGlobalsForPeer0consumer
     peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}Anchor.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
 
-    setGlobalsForPeer0retailer
-    peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}Anchor.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
+    
 
     setGlobalsForPeer0wholesaler
     peer channel update -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com -c $CHANNEL_NAME -f ./artifacts/channel/${CORE_PEER_LOCALMSPID}Anchor.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA
@@ -120,6 +112,6 @@ updateAnchorPeers(){
 
 # removeOldCrypto
 
-createChannel
+# createChannel
 joinChannel
 updateAnchorPeers

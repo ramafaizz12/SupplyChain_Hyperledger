@@ -156,6 +156,7 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 	if err != nil {
 		return err
 	}
+
 	clientorg, err := ctx.GetClientIdentity().GetMSPID()
 	if clientorg == "manufacturerMSP" {
 		asset.Owner = "distributorMSP"
@@ -221,6 +222,11 @@ func (s *SmartContract) LockAsset(ctx contractapi.TransactionContextInterface, i
 
 	return ctx.GetStub().PutState(id, AssetJSON)
 }
+
+// func (s *SmartContract) Manipulatedata(ctx contractapi.TransactionContextInterface, id string) error {
+//  ctx.GetStub().get
+// 	return ctx.GetStub()
+// }
 
 // GetAllAssets returns all assets found in world state
 func (s *SmartContract) GetAllAssets(ctx contractapi.TransactionContextInterface) ([]*Asset, error) {

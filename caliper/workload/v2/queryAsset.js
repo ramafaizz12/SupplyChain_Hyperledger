@@ -54,7 +54,7 @@ class QueryCarWorkload extends WorkloadModuleBase {
      */
     async submitTransaction() {
         this.txIndex++;
-        let carNumber = 'Client' + this.workerIndex + '_Asset' + this.txIndex.toString();
+        let carNumber = 'Client' + this.workerIndex + '_Asset1' + this.txIndex.toString();
 
         let args = {
             contractId: 'scberas',

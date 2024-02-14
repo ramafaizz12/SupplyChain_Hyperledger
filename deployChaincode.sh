@@ -117,9 +117,7 @@ installChaincode() {
     peer lifecycle chaincode install ${CC_NAME}.tar.gz
     echo "===================== Chaincode is installed on peer0.org4 ===================== "
 
-     setGlobalsForPeer0retailer
-    peer lifecycle chaincode install ${CC_NAME}.tar.gz
-    echo "===================== Chaincode is installed on peer0.org5 ===================== "
+     
 
      setGlobalsForPeer0wholesaler
     peer lifecycle chaincode install ${CC_NAME}.tar.gz
@@ -142,8 +140,7 @@ queryInstalled() {
 
 # queryInstalled
 
-# --collections-config ./artifacts/private-data/collections_config.json \
-#         --signature-policy "OR('Org1MSP.member','Org2MSP.member')" \
+
 
 approveForMyOrg1() {
     setGlobalsForPeer0farmer
@@ -312,16 +309,18 @@ commitChaincodeDefination() {
          --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_distributor_CA \
         --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_consumer_CA \
          --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
-          --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
            --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
             --version ${VERSION} --sequence ${SEQUENCE} --init-required
-         
-       
-          
-          
-
 }
 
+createcollectiondata() {
+    setGlobalsForPeer0farmer
+    setGlobalsForOrderer
+    peer chaincode instantiate -C $CHANNEL_NAME \
+                                --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_farmer_CA \
+                                --collections-config ./artifacts/private-data/collections_config.json \
+                                -P "OR('Org1MSP.member','Org2MSP.member')"
+}
 # commitChaincodeDefination
 
 
@@ -343,7 +342,6 @@ chaincodeInvokeInit() {
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_distributor_CA \
         --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_consumer_CA \
         --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
-        --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
         --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
        --isInit -c '{"Args":[]}'
      
@@ -366,7 +364,6 @@ chaincodeInvoke() {
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_distributor_CA \
         --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_consumer_CA \
         --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
-        --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
         --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
          -c '{"function":"InitLedger","Args":[]}'
          
@@ -421,9 +418,10 @@ chaincodeLockAsset() {
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_distributor_CA \
         --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_consumer_CA \
         --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
-        --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
-        --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
         -c '{"function": "lockAsset","Args":["asset1"]}'
+        # --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
+        # --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
+        
 
 }
 chaincodeCreateAsset() {
@@ -438,10 +436,12 @@ chaincodeCreateAsset() {
         --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_farmer_CA \
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_distributor_CA \
         --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_consumer_CA \
-        --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
-        --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
-        --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
-        -c '{"function": "CreateAssets","Args":["asset1", "Ikan_Lele", "farhan", "jl.baruga raya", "12-12-2023"]}'
+         -c '{"function": "CreateAssets","Args":["asset4", "Beras Ketan", "farhan", "jl.baruga raya", "12-12-2023", "081342073769", "9999999"]}'
+        # --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
+        # --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
+         
+        # --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
+       
 
 }
 
@@ -462,41 +462,39 @@ checkinstallpacakage (){
 
 # Run this function if you add any new dependency in chaincode
 # presetup
+# createcollectiondata
+# packageChaincode
+# installChaincode
 
-packageChaincode
-installChaincode
-
-queryInstalled
-checkinstallpacakage
-approveForMyOrg1
+# queryInstalled
+# checkinstallpacakage
+# approveForMyOrg1
 
 
-sleep 3
-checkCommitReadyness
-approveForMyOrg2
-sleep 3
-checkCommitReadyness
-approveForMyOrg3
-sleep 3
-checkCommitReadyness
-approveForMyOrg4
-sleep 3
-checkCommitReadyness
-approveForMyOrg5
-sleep 3
-checkCommitReadyness
-approveForMyOrg6
-sleep 3
-checkCommitReadyness
-commitChaincodeDefination
-queryCommitted
-chaincodeInvokeInit
-sleep 5
-chaincodeInvoke
 # sleep 3
-chaincodeQuery
+# checkCommitReadyness
+# approveForMyOrg2
+# sleep 3
+# checkCommitReadyness
+# approveForMyOrg3
+# sleep 3
+# checkCommitReadyness
+# approveForMyOrg4
+# sleep 3
+# checkCommitReadyness
+# approveForMyOrg5
+# sleep 3
+# checkCommitReadyness
+# approveForMyOrg6
+# sleep 3
+# checkCommitReadyness
+# commitChaincodeDefination
+# queryCommitted
+# chaincodeInvokeInit
+# sleep 5
+# # chaincodeInvoke
+# sleep 3
+# chaincodeQuery
 # chaincodeUpdateAsset
-# chaincodeCreateAsset
+chaincodeCreateAsset
 # chaincodeLockAsset
-
-

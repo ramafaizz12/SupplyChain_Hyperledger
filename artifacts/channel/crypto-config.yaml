@@ -37,20 +37,6 @@ PeerOrgs:
 
     Users:
       Count: 1
-
-  - Name: retailer
-    Domain: retailer.example.com
-    EnableNodeOUs: true
-
-    Template:
-      Count: 1
-      # Start: 5
-      # Hostname: {{.Prefix}}{{.Index}} # default
-      SANS:
-        - "localhost"
-
-    Users:
-      Count: 1
   
   - Name: distributor
     Domain: distributor.example.com

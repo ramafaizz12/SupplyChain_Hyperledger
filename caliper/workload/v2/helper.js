@@ -30,7 +30,7 @@ module.exports.createCar = async function (bc, workerIndex, args) {
 
     while (txIndex < args.assets) {
         txIndex++;
-        carNumber = 'Client' + workerIndex + '_CAR' + txIndex.toString();
+        carNumber = 'Client' + workerIndex + '_Asset1' + txIndex.toString();
         color = colors[Math.floor(Math.random() * colors.length)];
         make = makes[Math.floor(Math.random() * makes.length)];
         model = models[Math.floor(Math.random() * models.length)];
