@@ -15,7 +15,11 @@
         "consumer": {
             "mspid": "consumerMSP",
             "peers": [
-                "peer0.consumer.example.com"
+                "peer0.farmer.example.com",
+                "peer0.consumer.example.com",
+                "peer0.distributor.example.com",
+                "peer0.manufacturer.example.com",
+                "peer0.wholesaler.example.com"
             ],
             "certificateAuthorities": [
                 "ca.consumer.example.com"
@@ -26,7 +30,7 @@
         "peer0.consumer.example.com": {
             "url": "grpcs://localhost:8051",
             "tlsCACerts": {
-                "pem": "-----BEGIN CERTIFICATE-----\nMIICFzCCAb2gAwIBAgIUWscd8iWQpfKvVIQggrTDaDuLENgwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTIzMTAzMTAyMzAwMFoXDTM4MTAyNzAyMzAwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErjULXWQGH+0qXz594H4JZXce\nwZEq3WvBlml29ssuBK1ZgLwAkQZyjElsJSA9qkeV4HqcHR6QkbhdcQZa5LbI/qNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFAqbPxs9o1LhD7DQgbqlno3BF6cFMAoGCCqGSM49BAMCA0gAMEUCIQD+25yoluGZ\nbkQWZ5TfikVo+csx+92t0WrgFFRIB+0sJwIgeQv8uSnuXXSrzMbIpstS6aEapDsO\nmjUZDV1Uh1ln1cA=\n-----END CERTIFICATE-----\n"
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICFjCCAb2gAwIBAgIUEDEuGrgni44xi4wO3RfwTWXw80YwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTI0MDIxMzEzNTAwMFoXDTM5MDIwOTEzNTAwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEVxT2F9P3qB4Bzd7Hy0g+Ffmu\nnLM8AkbgQ/4CyMjvFv3gEjW4Hl/Ggx2Ucpq/hLtImVTqgIRkOoaiTHQJ0Moyg6NF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFE40ENP9OyepwtXwxWTvEyfkdoChMAoGCCqGSM49BAMCA0cAMEQCIFw2WzuHa5Y7\nixonO56BTDg+X2RrAs2s0LS62IzAfVzUAiBkROvkjgy5oLGrlRZyuBg3S/T6PIxc\nr343uMDa+387+w==\n-----END CERTIFICATE-----\n"
             },
             "grpcOptions": {
                 "ssl-target-name-override": "peer0.consumer.example.com",
@@ -41,7 +45,9 @@
             "url": "https://localhost:10054",
             "caName": "ca.consumer.example.com",
             "tlsCACerts": {
-                "pem": "-----BEGIN CERTIFICATE-----\nMIICFzCCAb2gAwIBAgIUWscd8iWQpfKvVIQggrTDaDuLENgwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTIzMTAzMTAyMzAwMFoXDTM4MTAyNzAyMzAwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErjULXWQGH+0qXz594H4JZXce\nwZEq3WvBlml29ssuBK1ZgLwAkQZyjElsJSA9qkeV4HqcHR6QkbhdcQZa5LbI/qNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFAqbPxs9o1LhD7DQgbqlno3BF6cFMAoGCCqGSM49BAMCA0gAMEUCIQD+25yoluGZ\nbkQWZ5TfikVo+csx+92t0WrgFFRIB+0sJwIgeQv8uSnuXXSrzMbIpstS6aEapDsO\nmjUZDV1Uh1ln1cA=\n-----END CERTIFICATE-----\n"
+                "pem": [
+                    "-----BEGIN CERTIFICATE-----\nMIICFjCCAb2gAwIBAgIUEDEuGrgni44xi4wO3RfwTWXw80YwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTI0MDIxMzEzNTAwMFoXDTM5MDIwOTEzNTAwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEVxT2F9P3qB4Bzd7Hy0g+Ffmu\nnLM8AkbgQ/4CyMjvFv3gEjW4Hl/Ggx2Ucpq/hLtImVTqgIRkOoaiTHQJ0Moyg6NF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFE40ENP9OyepwtXwxWTvEyfkdoChMAoGCCqGSM49BAMCA0cAMEQCIFw2WzuHa5Y7\nixonO56BTDg+X2RrAs2s0LS62IzAfVzUAiBkROvkjgy5oLGrlRZyuBg3S/T6PIxc\nr343uMDa+387+w==\n-----END CERTIFICATE-----\n"
+                ] 
             },
             "httpOptions": {
                 "verify": false

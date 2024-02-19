@@ -18,25 +18,28 @@ type SmartContract struct {
 type Asset struct {
 	ID                      string `json:"ID"`
 	Nama_petani             string `json:"nama_petani"`
-	Jenis_beras             string `json:"jenis_beras"`
 	Owner                   string `json:"owner"`
 	Alamat                  string `json:"alamat"`
+	Lama_panen              string `json:"lama_panen"`
 	Tanggal_panen           string `json:"tanggal_panen"`
 	Konfirmasi_manufacturer bool   `json:"konfirmasi_manufacturer"`
 	Konfirmasi_distributor  bool   `json:"konfirmasi_distributor"`
-	Konfirmasi_retailer     bool   `json:"konfirmasi_retailer"`
 	Konfirmasi_wholesaler   bool   `json:"konfirmasi_wholesaler"`
-	Tanggal_diolah          string `json:"tanggal_diolah"`
 	Nohp                    string `json:"no_hp"`
-	Npwp                    string `json:"npwp"`
-	Alamat_perusahaan       string `json:"alamat_perusahaan"`
+	Lama_Pengeringan        string `json:"lama_pengeringan"`
+	Kadar_Air               string `json:"kadar_air"`
+	Butir_Gabah             string `json:"butir_gabah"`
+	Benda_lain              string `json:"benda_lain"`
+	Butir_Patah             string `json:"butir_patah"`
+	Beras_Kepala            string `json:"beras_kepala"`
+	Derajat_Sosoh           string `json:"derajat_sosoh"`
+	Lama_penyimpanan        string `json:"lama_penyimpanan"`
 	JumlahToWholesaler      string `json:"jumlahToWholesaler"`
-	JumlahToRetailer        string `json:"jumlahToRetailer"`
 	TimeStamp               string `json:"timestamp"`
 }
 
 // CreateAsset issues a new asset to the world state with given details.
-func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface, id string, jenis_beras string, nama_petani string, alamat string, tanggal_panen string, nohp string, npwp string) error {
+func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface, id string, nama_petani string, alamat string, tanggal_panen string, nohp string, lama_panen string) error {
 	exists, err := s.AssetExists(ctx, id)
 	if err != nil {
 		return err
@@ -47,7 +50,7 @@ func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface
 
 	clientorg, err := ctx.GetClientIdentity().GetMSPID()
 	if clientorg != "farmerMSP" {
-		return fmt.Errorf("Maaf anda bukan farmer")
+		return fmt.Errorf("maaf anda bukan farmer")
 	}
 	if err != nil {
 		return err
@@ -55,12 +58,11 @@ func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface
 
 	asset := Asset{
 		ID:            id,
-		Jenis_beras:   jenis_beras,
 		Nama_petani:   nama_petani,
 		Owner:         "manufacturerMSP",
 		Alamat:        alamat,
+		Lama_panen:    lama_panen,
 		Nohp:          nohp,
-		Npwp:          npwp,
 		Tanggal_panen: tanggal_panen,
 	}
 	assetJSON, err := json.Marshal(asset)
@@ -70,12 +72,6 @@ func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface
 
 	return ctx.GetStub().PutState(id, assetJSON)
 }
-
-// func (s *SmartContract) lockToken(ctx contractapi.TransactionContextInterface, tokenId string) [] byte {
-// 	owner, err := ctx.GetClientIdentity().GetID()
-// 	exists:= s.nftExist(ctx, tokenId)
-
-// }
 
 // ReadAsset returns the asset stored in the world state with given id.
 func (s *SmartContract) ReadAsset(ctx contractapi.TransactionContextInterface, id string) (*Asset, error) {
@@ -109,11 +105,7 @@ func (s *SmartContract) UpdateAsset(ctx contractapi.TransactionContextInterface,
 	// overwriting original asset with new asset
 	clientorg, err := ctx.GetClientIdentity().GetMSPID()
 	if clientorg == "manufacturerMSP" {
-		asset = Asset{
-
-			Tanggal_diolah:    tanggal_diolah,
-			Alamat_perusahaan: alamat_perusahaan,
-		}
+		asset = Asset{}
 	}
 	if err != nil {
 		return err
@@ -151,40 +143,49 @@ func (s *SmartContract) AssetExists(ctx contractapi.TransactionContextInterface,
 }
 
 // TransferAsset updates the owner field of asset with given id in world state.
-func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterface, id string, tanggal_diolah string, alamat_perusahaan string, jumlah string) error {
+func (s *SmartContract) TransferAssetToDistributor(ctx contractapi.TransactionContextInterface, id string, jumlah string, lama_pengeringan string, lama_penyimpanan string, kadar_air string, derajat_sosoh string, beras_kepala string, butir_patah string, butir_gabah string, benda_lain string) error {
 	asset, err := s.ReadAsset(ctx, id)
 	if err != nil {
 		return err
 	}
 
-	clientorg, err := ctx.GetClientIdentity().GetMSPID()
+	clientorg, _ := ctx.GetClientIdentity().GetMSPID()
 	if clientorg == "manufacturerMSP" {
+		asset.Lama_Pengeringan = lama_pengeringan
+		asset.Lama_penyimpanan = lama_penyimpanan
+		asset.Kadar_Air = kadar_air
+		asset.Derajat_Sosoh = derajat_sosoh
+		asset.Beras_Kepala = beras_kepala
+		asset.Butir_Patah = butir_patah
+		asset.Butir_Gabah = butir_gabah
+		asset.Benda_lain = benda_lain
 		asset.Owner = "distributorMSP"
-		asset.Tanggal_diolah = tanggal_diolah
-		asset.Alamat_perusahaan = alamat_perusahaan
 
 	}
+	assetJSON, err := json.Marshal(asset)
+	if err != nil {
+		return err
+	}
 
-	// timestamp, err := ctx.GetStub().GetTxTimestamp()
+	return ctx.GetStub().PutState(id, assetJSON)
+}
+
+func (s *SmartContract) TransferAssetToWholesaler(ctx contractapi.TransactionContextInterface, id string, jumlah string) error {
+	asset, err := s.ReadAsset(ctx, id)
+	if err != nil {
+		return err
+	}
+
 	dt := time.Now()
 	timestampp := dt.Format("01-02-2006 15:04:05")
 
+	clientorg, _ := ctx.GetClientIdentity().GetMSPID()
 	if clientorg == "distributorMSP" {
 		asset.Owner = "wholesalerMSP"
 		asset.JumlahToWholesaler = jumlah
 		asset.TimeStamp = timestampp
 
 	}
-	if clientorg == "wholesalerMSP" {
-		asset.Owner = "retailerMSP"
-		asset.JumlahToRetailer = jumlah
-		asset.TimeStamp = timestampp
-
-	}
-	if clientorg == "retailerMSP" {
-		asset.Owner = "consumerMSP"
-	}
-
 	assetJSON, err := json.Marshal(asset)
 	if err != nil {
 		return err
@@ -206,11 +207,12 @@ func (s *SmartContract) LockAsset(ctx contractapi.TransactionContextInterface, i
 	if clientorg == "manufacturerMSP" {
 		assets.Konfirmasi_manufacturer = true
 	}
-	if clientorg == "retailerMSP" {
-		assets.Konfirmasi_retailer = true
-	}
+
 	if clientorg == "wholesalerMSP" {
 		assets.Konfirmasi_wholesaler = true
+		dt := time.Now()
+		timestampp := dt.Format("01-02-2006 15:04:05")
+		assets.TimeStamp = timestampp
 	}
 	if err != nil {
 		return err
@@ -222,11 +224,6 @@ func (s *SmartContract) LockAsset(ctx contractapi.TransactionContextInterface, i
 
 	return ctx.GetStub().PutState(id, AssetJSON)
 }
-
-// func (s *SmartContract) Manipulatedata(ctx contractapi.TransactionContextInterface, id string) error {
-//  ctx.GetStub().get
-// 	return ctx.GetStub()
-// }
 
 // GetAllAssets returns all assets found in world state
 func (s *SmartContract) GetAllAssets(ctx contractapi.TransactionContextInterface) ([]*Asset, error) {

@@ -714,6 +714,5 @@ createCertificatesForDistributor
 createCertificatesForManufacturer
 createCertificatesForConsumer
 createCertificatesForWholesaler
-
 createCretificatesForOrderer
 

@@ -57,13 +57,7 @@ setGlobalsForPeer0manufacturer(){
     
 }
 
-setGlobalsForPeer0retailer(){
-    export CORE_PEER_LOCALMSPID="retailerMSP"
-    export CORE_PEER_TLS_ROOTCERT_FILE=$PEER0_retailer_CA
-    export CORE_PEER_MSPCONFIGPATH=${PWD}/artifacts/channel/crypto-config/peerOrganizations/retailer.example.com/users/Admin@retailer.example.com/msp
-    export CORE_PEER_ADDRESS=localhost:6551
-    
-}
+
 
 setGlobalsForPeer0wholesaler(){
     export CORE_PEER_LOCALMSPID="wholesalerMSP"
@@ -252,28 +246,7 @@ checkCommitReadyness() {
     echo "===================== checking commit readyness from org 1 ===================== "
 }
 
-approveForMyOrg5() {
-    setGlobalsForPeer0retailer
-    # set -x
-    peer lifecycle chaincode approveformyorg -o localhost:7050 \
-        --ordererTLSHostnameOverride orderer.example.com --tls \
-        --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} \
-         --version ${VERSION}    --init-required --package-id ${PACKAGE_ID}  --sequence 1
-          
-    # set +x
 
-    echo "===================== chaincode approved from org 1 ===================== "
-
-}
-
-checkCommitReadyness() {
-
-    setGlobalsForPeer0retailer
-    peer lifecycle chaincode checkcommitreadiness --channelID $CHANNEL_NAME \
-        --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
-        --name ${CC_NAME} --version ${VERSION} --sequence ${VERSION} --output json --init-required
-    echo "===================== checking commit readyness from org 1 ===================== "
-}
 
 approveForMyOrg6() {
     setGlobalsForPeer0wholesaler
@@ -388,7 +361,7 @@ chaincodeInvokeDeleteAsset() {
 }
 
 chaincodeUpdateAsset() {
-    setGlobalsForPeer0farmer
+    setGlobalsForPeer0manufacturer
 
     # Create Car
     peer chaincode invoke -o localhost:7050 \
@@ -400,9 +373,8 @@ chaincodeUpdateAsset() {
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_distributor_CA \
         --peerAddresses localhost:8051 --tlsRootCertFiles $PEER0_consumer_CA \
         --peerAddresses localhost:9551 --tlsRootCertFiles $PEER0_manufacturer_CA \
-        --peerAddresses localhost:6551 --tlsRootCertFiles $PEER0_retailer_CA \
         --peerAddresses localhost:5551 --tlsRootCertFiles $PEER0_wholesaler_CA \
-        -c '{"function": "CreateAssets","Args":["asset12", "rama", "tama", "tama", "lima"]}'
+        -c '{"function": "TransferAssetToDistributor","Args":["asset4", "200 ton", "3bulan", "1 minggu", "25%", "10 %", "20 kg", "2%", "2%", "4%"]}'
 
 }
 chaincodeLockAsset() {
@@ -462,7 +434,7 @@ checkinstallpacakage (){
 
 # Run this function if you add any new dependency in chaincode
 # presetup
-# createcollectiondata
+
 # packageChaincode
 # installChaincode
 
@@ -476,25 +448,23 @@ checkinstallpacakage (){
 # approveForMyOrg2
 # sleep 3
 # checkCommitReadyness
-# approveForMyOrg3
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg4
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg5
-# sleep 3
-# checkCommitReadyness
-# approveForMyOrg6
-# sleep 3
-# checkCommitReadyness
-# commitChaincodeDefination
-# queryCommitted
-# chaincodeInvokeInit
-# sleep 5
-# # chaincodeInvoke
-# sleep 3
-# chaincodeQuery
+approveForMyOrg3
+sleep 3
+checkCommitReadyness
+approveForMyOrg4
+sleep 3
+checkCommitReadyness
+approveForMyOrg6
+sleep 3
+checkCommitReadyness
+commitChaincodeDefination
+queryCommitted
+chaincodeInvokeInit
+sleep 5
+chaincodeInvoke
+sleep 3
+chaincodeQuery
 # chaincodeUpdateAsset
-chaincodeCreateAsset
+# chaincodeCreateAsset
 # chaincodeLockAsset
+# export PATH=${PWD}/bin:$PATH
