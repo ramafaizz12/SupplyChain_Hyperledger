@@ -1,8 +1,8 @@
 {
-    "name": "first-network-wholesaler",
+    "name": "first-network-orgwholesaler",
     "version": "1.0.0",
     "client": {
-        "organization": "wholesaler",
+        "organization": "Orgwholesaler",
         "connection": {
             "timeout": {
                 "peer": {
@@ -12,38 +12,36 @@
         }
     },
     "organizations": {
-        "wholesaler": {
-            "mspid": "wholesalerMSP",
+        "Orgwholesaler": {
+            "mspid": "OrgwholesalerMSP",
             "peers": [
-                "peer0.wholesaler.example.com"
+                "peer0.orgwholesaler.example.com"
             ],
             "certificateAuthorities": [
-                "ca.wholesaler.example.com"
+                "ca.orgwholesaler.example.com"
             ]
         }
     },
     "peers": {
-        "peer0.wholesaler.example.com": {
+        "peer0.orgwholesaler.example.com": {
             "url": "grpcs://localhost:5551",
             "tlsCACerts": {
-                "pem": "-----BEGIN CERTIFICATE-----\nMIICFjCCAb2gAwIBAgIUPske2dIcbSemzTRbMGtw3Tg7Ks0wCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTI0MDIxMzEzNTAwMFoXDTM5MDIwOTEzNTAwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEa2a79WCXDEMjQhARuI95zDHR\nGctWkBDA080cq92fRWcAMPrip2eURduNN8q8+JvQXpbYJq7rwCUrxJkHLPUZDaNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFFIDRzN/dj3+dCnRuIHDvSVLDu89MAoGCCqGSM49BAMCA0cAMEQCICw3zfINS0mF\nB5+SxoOIfhRiMdBKMWixtjUhXaaQxg6MAiBE0joFA77ZAit5WB/4qWt1uE+hDNW0\nTufTj8tsqUNMvg==\n-----END CERTIFICATE-----\n"
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICFjCCAb2gAwIBAgIUUWwjpUVmKL7iJJj+oIAa3SQNh9kwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTI0MDIxODExMjQwMFoXDTM5MDIxNDExMjQwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyxgsoBw5y5rFvkN0CI8draq3\nX74mfV+ytNxdfRFpdy8ImlEtWJ0flcUOsklYWzYxvsdPt15U+8Cmo5jkoCLkfKNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFM1vOgnAou6fM1ooSE2rK4PauUkXMAoGCCqGSM49BAMCA0cAMEQCIHp7lDDw13Wr\nMGrTHXHoRAJW/ytLtB3uUo9fmc9CzH0eAiB7G0tDhfKmRRaR4lXERkupN733n4AN\nWOD2/QkSfTw1HQ==\n-----END CERTIFICATE-----\n"
             },
             "grpcOptions": {
-                "ssl-target-name-override": "peer0.wholesaler.example.com",
-                "hostnameOverride": "peer0.wholesaler.example.com"
+                "ssl-target-name-override": "peer0.orgwholesaler.example.com",
+                "hostnameOverride": "peer0.orgwholesaler.example.com"
             }
         }
 
 	
     },
     "certificateAuthorities": {
-        "ca.wholesaler.example.com": {
+        "ca.orgwholesaler.example.com": {
             "url": "https://localhost:2054",
-            "caName": "ca.wholesaler.example.com",
+            "caName": "ca.orgwholesaler.example.com",
             "tlsCACerts": {
-                "pem": [
-                    "-----BEGIN CERTIFICATE-----\nMIICFjCCAb2gAwIBAgIUPske2dIcbSemzTRbMGtw3Tg7Ks0wCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTI0MDIxMzEzNTAwMFoXDTM5MDIwOTEzNTAwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEa2a79WCXDEMjQhARuI95zDHR\nGctWkBDA080cq92fRWcAMPrip2eURduNN8q8+JvQXpbYJq7rwCUrxJkHLPUZDaNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFFIDRzN/dj3+dCnRuIHDvSVLDu89MAoGCCqGSM49BAMCA0cAMEQCICw3zfINS0mF\nB5+SxoOIfhRiMdBKMWixtjUhXaaQxg6MAiBE0joFA77ZAit5WB/4qWt1uE+hDNW0\nTufTj8tsqUNMvg==\n-----END CERTIFICATE-----\n"
-                ] 
+                "pem": "-----BEGIN CERTIFICATE-----\nMIICFjCCAb2gAwIBAgIUUWwjpUVmKL7iJJj+oIAa3SQNh9kwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTI0MDIxODExMjQwMFoXDTM5MDIxNDExMjQwMFowaDELMAkG\nA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQKEwtIeXBl\ncmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMtY2Etc2Vy\ndmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEyxgsoBw5y5rFvkN0CI8draq3\nX74mfV+ytNxdfRFpdy8ImlEtWJ0flcUOsklYWzYxvsdPt15U+8Cmo5jkoCLkfKNF\nMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8CAQEwHQYDVR0OBBYE\nFM1vOgnAou6fM1ooSE2rK4PauUkXMAoGCCqGSM49BAMCA0cAMEQCIHp7lDDw13Wr\nMGrTHXHoRAJW/ytLtB3uUo9fmc9CzH0eAiB7G0tDhfKmRRaR4lXERkupN733n4AN\nWOD2/QkSfTw1HQ==\n-----END CERTIFICATE-----\n"
             },
             "httpOptions": {
                 "verify": false

@@ -448,23 +448,23 @@ checkinstallpacakage (){
 # approveForMyOrg2
 # sleep 3
 # checkCommitReadyness
-approveForMyOrg3
-sleep 3
-checkCommitReadyness
-approveForMyOrg4
-sleep 3
-checkCommitReadyness
-approveForMyOrg6
-sleep 3
-checkCommitReadyness
-commitChaincodeDefination
-queryCommitted
-chaincodeInvokeInit
-sleep 5
-chaincodeInvoke
-sleep 3
-chaincodeQuery
+# approveForMyOrg3
+# sleep 3
+# checkCommitReadyness
+# approveForMyOrg4
+# sleep 3
+# checkCommitReadyness
+# approveForMyOrg6
+# sleep 3
+# checkCommitReadyness
+# commitChaincodeDefination
+# queryCommitted
+# chaincodeInvokeInit
+# sleep 5
+# chaincodeInvoke
+# sleep 3
+# chaincodeQuery
 # chaincodeUpdateAsset
-# chaincodeCreateAsset
+chaincodeCreateAsset
 # chaincodeLockAsset
 # export PATH=${PWD}/bin:$PATH

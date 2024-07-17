@@ -38,7 +38,7 @@ type Asset struct {
 	TimeStamp               string `json:"timestamp"`
 }
 
-// CreateAsset issues a new asset to the world state with given details.
+// Fungsi CreateAsset untuk membuat asset dengan informasi awal pada aktor petani
 func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface, id string, nama_petani string, alamat string, tanggal_panen string, nohp string, lama_panen string) error {
 	exists, err := s.AssetExists(ctx, id)
 	if err != nil {
@@ -73,7 +73,7 @@ func (s *SmartContract) CreateAssets(ctx contractapi.TransactionContextInterface
 	return ctx.GetStub().PutState(id, assetJSON)
 }
 
-// ReadAsset returns the asset stored in the world state with given id.
+// Membaca Detail Asset berdasarkan ID
 func (s *SmartContract) ReadAsset(ctx contractapi.TransactionContextInterface, id string) (*Asset, error) {
 	assetJSON, err := ctx.GetStub().GetState(id)
 	if err != nil {
@@ -142,7 +142,7 @@ func (s *SmartContract) AssetExists(ctx contractapi.TransactionContextInterface,
 	return assetJSON != nil, nil
 }
 
-// TransferAsset updates the owner field of asset with given id in world state.
+// Fungsi untuk mentransfer detail asset ke distributor
 func (s *SmartContract) TransferAssetToDistributor(ctx contractapi.TransactionContextInterface, id string, jumlah string, lama_pengeringan string, lama_penyimpanan string, kadar_air string, derajat_sosoh string, beras_kepala string, butir_patah string, butir_gabah string, benda_lain string) error {
 	asset, err := s.ReadAsset(ctx, id)
 	if err != nil {
@@ -170,6 +170,7 @@ func (s *SmartContract) TransferAssetToDistributor(ctx contractapi.TransactionCo
 	return ctx.GetStub().PutState(id, assetJSON)
 }
 
+// Fungsi untuk mentransfer detail asset ke pedagang besar
 func (s *SmartContract) TransferAssetToWholesaler(ctx contractapi.TransactionContextInterface, id string, jumlah string) error {
 	asset, err := s.ReadAsset(ctx, id)
 	if err != nil {
@@ -194,6 +195,7 @@ func (s *SmartContract) TransferAssetToWholesaler(ctx contractapi.TransactionCon
 	return ctx.GetStub().PutState(id, assetJSON)
 }
 
+// Fungsi untuk mengunci asset pada aktor
 func (s *SmartContract) LockAsset(ctx contractapi.TransactionContextInterface, id string) error {
 	clientorg, err := ctx.GetClientIdentity().GetMSPID()
 	if err != nil {

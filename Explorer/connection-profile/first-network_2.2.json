@@ -44,7 +44,7 @@
 		"farmerMSP": {
 			"mspid": "farmerMSP",
 			"adminPrivateKey": {
-				"path": "/tmp/crypto/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/keystore/e09d62670d84407b514e25b30c9a3235ba266e519afcfda1b271ef29b5dfeded_sk"
+				"path": "/tmp/crypto/peerOrganizations/farmer.example.com/users/Admin@farmer.example.com/msp/keystore/5ddcf6e2b3555ad08faf1f89a6c08a7405d8c28bf5733779722dd12b236531ec_sk"
 			},
 			"peers": [
 				"peer0.farmer.example.com"
